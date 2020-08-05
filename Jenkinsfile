@@ -19,7 +19,7 @@ pipeline {
 
     stage('Maven Building Artifacts'){
         steps {			
-			bat "mvn clean package"
+			sh "mvn clean package"
 			echo 'Check out the project'
 		}
 	}	
