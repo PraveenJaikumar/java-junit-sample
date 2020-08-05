@@ -20,6 +20,7 @@ pipeline {
     stage('Maven Building Artifacts'){
         steps {			
 			//sh "mvn clean package"
+			echo 'Check out the project'
 		}
 	}	
     stage('Junit Test Results') {
