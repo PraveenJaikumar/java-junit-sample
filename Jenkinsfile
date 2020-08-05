@@ -4,9 +4,9 @@ pipeline {
         maven 'myMaven' 
         }
 	environment {
-		dockerHome= tool 'myDocker'
-		MavenHome= tool 'myMaven'
-		PATH="$dockerHome/bin:$MavenHome/bin:$PATH"
+		dockerHome = tool 'myDocker'
+		MavenHome = tool 'myMaven'
+		PATH = "$dockerHome/bin:$MavenHome/bin:$PATH"
 	}
 		
 	stages {
