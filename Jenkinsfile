@@ -25,7 +25,7 @@ pipeline {
    }
     stage('Build Docker Image'){
      steps {		
-			bat "docker build -t sample/my-app:1.0.0 ."
+			 "docker build -t sample/my-app:1.0.0 ."
 		}
    }
 
