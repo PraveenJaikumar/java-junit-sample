@@ -25,34 +25,27 @@ pipeline {
 				junit '**/target/surefire-reports/TEST-*.xml'
 			}
 		}
-		// stage('Package') {
-		// 	steps {			
-		// 		sh ''
-		// 	}
-		// }
-		stage('Build Docker Image'){
+		stage('Build Docker Image') {
 			steps {
 				script {
-					def dockerImage = docker.build("praveenjaikumar/testdock:${env.BUILD_TAG}")
+					dockerImage = docker.build("praveenjaikumar/testdock:${env.BUILD_TAG}")
 				}		
 			//	sh "docker build -t sample/my-app:1.0.0 ."
 				
 			}
 		}
-		stage('Push Docker Image'){
+		stage('Push Docker Image') {
 			steps {
 				script {
-					docker.withRegistry('', 'praveen-docker') {
-						dockerImage.push();
-						// dockerImage.push('latest')
-
-
+					docker.withRegistry( '', 'praveen-docker' ) {
+						dockerImage.push()
+						dockerImage.push('latest')
 					}
-					
 				}			
 			//	sh "docker build -t sample/my-app:1.0.0 ."
 				
 			}
 		}
+
 	}
 }
