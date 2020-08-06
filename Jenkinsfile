@@ -33,7 +33,7 @@ pipeline {
 		stage('Build Docker Image'){
 			steps {
 				script {
-					dockerImage = docker.build("praveenjaikumar/testdock:${env.BUILD_TAG}")
+					def	dockerImage = docker.build("praveenjaikumar/testdock:${env.BUILD_TAG}")
 				}		
 			//	sh "docker build -t sample/my-app:1.0.0 ."
 				
@@ -42,7 +42,7 @@ pipeline {
 		stage('Push Docker Image'){
 			steps {
 				script {
-					docker.withRegistry('', praveen-docker) {
+					docker.withRegistry('', 'praveen-docker') {
 						dockerImage.push('')
 						// dockerImage.push('latest')
 
