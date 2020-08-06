@@ -9,7 +9,7 @@ pipeline {
 		stage('Checkout Source') {
 			steps {
 				echo 'Check out the project'
-				echo '$PATH'
+				echo "$PATH"
 				checkout scm  
 			}
 		}
