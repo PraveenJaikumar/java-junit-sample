@@ -1,5 +1,5 @@
 pipeline {
-	agent any
+	agent { docker {image: maven:3.6.3-jdk-8}}
 	environment {
 		dockerHome = tool 'myDocker'
 		MavenHome = tool 'myMaven'
@@ -15,7 +15,8 @@ pipeline {
 		stage('Maven Building Artifacts') {
 			steps {			
 				sh "mvn clean package"
-				echo 'Check out the project'
+				sh 'ls -lrta'
+				sh 'pwd'
 			}
 		}	
 		stage('Junit Test Results') {
@@ -24,9 +25,33 @@ pipeline {
 				junit '**/target/surefire-reports/TEST-*.xml'
 			}
 		}
+		// stage('Package') {
+		// 	steps {			
+		// 		sh ''
+		// 	}
+		// }
 		stage('Build Docker Image'){
-			steps {		
-			sh "docker build -t sample/my-app:1.0.0 ."
+			steps {
+				script {
+					dockerImage=docker.build(praveenjaikumar/testdock:${env.BUILD_TAG})
+				}		
+			//	sh "docker build -t sample/my-app:1.0.0 ."
+				
+			}
+		}
+		stage('Push Docker Image'){
+			steps {
+				script {
+					docker.withRegistry('', praveen-docker) {
+						dockerImage.push('')
+						dockerImage.push('latest')
+
+
+					}
+					
+				}		
+			//	sh "docker build -t sample/my-app:1.0.0 ."
+				
 			}
 		}
 	}
